@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
+import { connect } from 'react-redux';
 
 function Login(props) {
     return (
@@ -168,4 +169,10 @@ display: flex;
   }
 `;
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (state) => ({}); 
+
+export default connect(mapDispatchToProps, mapStateToProps)(Login); 
