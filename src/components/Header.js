@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import { BiSearchAlt2 } from 'react-icons/bi';
+import { connect } from 'react-redux';
 
 
 function Header(props) {
@@ -53,9 +54,12 @@ function Header(props) {
 
             <User>
               <a>
-                <img src='/images/user.svg' />
-                <span>Me</span>
-                <img src='/images/down-icon.svg' />
+                { props.user && props.user.photoURL ? (<img src={props.user.photoURL} />)
+                  : (<img src='/images/user.svg' />)}
+                <span>Me
+                 <img src='/images/down-icon.svg' />
+                </span>
+                
               </a>
 
               <SignOut>
@@ -65,8 +69,10 @@ function Header(props) {
             <Work>
               <a>
                 <img src='/images/nav-work.svg' />
-                <span>Work</span>
-                <img src='/images/down-icon.svg' />
+                <span>Work
+                 <img src='/images/down-icon.svg' />
+                </span>
+                
               </a>
             </Work>
 
@@ -254,5 +260,12 @@ const Work = styled(User)`  //This copies the style of User to Work
   border-left: 1px solid rgba(0, 0, 0, 0.08);
   `;
 
+  const mapStateToProps = (state) => {
+    return {
+      user: state.userState.user,
+    }
+  };
 
-export default Header; 
+  const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header); 
