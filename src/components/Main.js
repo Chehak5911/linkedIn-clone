@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PostModal from './PostModal';
+import { connect } from 'react-redux';
 
-function Main() {
+function Main(props) {
 
-  const[showModal, setShowModal] = useState('close');
+  const [showModal, setShowModal] = useState('close');
 
   const handleClick = (event) => {
     event.preventDefault();
-    if( event.target !== event.currentTarget ){
+    if (event.target !== event.currentTarget) {
       return;
     }
-    switch(showModal){
+    switch (showModal) {
       case 'open':
         setShowModal('close');
         break;
@@ -19,47 +20,49 @@ function Main() {
         setShowModal('open');
         break;
       default:
-        setShowModal('close');  
-        break;  
+        setShowModal('close');
+        break;
     }
-  }; 
+  };
 
   return (
     <Container>
       <ShareBox>Share
-      <div>
-        <img src='/images/user.svg' />
-        <button onClick={handleClick}> Start a post </button>
-      </div>
-      <div>
-        <button>
-          <img src='/images/photo-icon.svg' />
-          <span>Photo</span>
-        </button>
+        <div>
+          {/* {props.user.photoURL ? (<img src={props.user.photoURL} />) */}
+            <img src='/images/user.svg' />
+          <button onClick={handleClick}> Start a post </button>
+        </div>
+        <div>
+          <button>
+            <img src='/images/photo-icon.svg' />
+            <span>Photo</span>
+          </button>
 
-        <button>
-          <img src='/images/video-icon.svg' />
-          <span>Video</span>
-        </button>
+          <button>
+            <img src='/images/video-icon.svg' />
+            <span>Video</span>
+          </button>
 
-        <button>
-          <img src='/images/event-icon.svg' />
-          <span>Event</span>
-        </button>
+          <button>
+            <img src='/images/event-icon.svg' />
+            <span>Event</span>
+          </button>
 
-        <button>
-          <img src='/images/article-icon.svg' />
-          <span>Article</span>
-        </button>
+          <button>
+            <img src='/images/article-icon.svg' />
+            <span>Article</span>
+          </button>
 
-      </div>
+        </div>
       </ShareBox>
 
       <div>
         <Article>
           <SharedActor>
             <a>
-              <img src='/images/user.svg' />
+              {/* {props.user.photoURL ? (<img src={props.user.photoURL} />) */}
+                 <img src='/images/user.svg' />
               <div>
                 <span>Title</span>
                 <span>Info</span>
@@ -92,28 +95,28 @@ function Main() {
           </SocialCounts>
 
           <SocialActions>
-          <button>
-            <img src='/images/like.png' />
-            <span>Like</span>
-          </button>
-          <button>
-            <img src='/images/comment.png' />
-            <span>Comment</span>
-          </button>
-          <button>
-            <img src='/images/share.png' />
-            <span>Share</span>
-          </button>
-          <button>
-            <img src='/images/send.png' />
-            <span>Send</span>
-          </button>
+            <button>
+              <img src='/images/like.png' />
+              <span>Like</span>
+            </button>
+            <button>
+              <img src='/images/comment.png' />
+              <span>Comment</span>
+            </button>
+            <button>
+              <img src='/images/share.png' />
+              <span>Share</span>
+            </button>
+            <button>
+              <img src='/images/send.png' />
+              <span>Send</span>
+            </button>
           </SocialActions>
         </Article>
       </div>
 
       <PostModal showModal={showModal} handleClick={handleClick} />
-      
+
     </Container>
   )
 }
@@ -313,4 +316,10 @@ button{
 }
 `;
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    user: state.userState.user,
+  }
+}
+
+export default connect(mapStateToProps)(Main);
