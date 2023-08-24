@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import React from 'react';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { connect } from 'react-redux';
+import { signOutAPI } from '../actions';
 
 
 function Header(props) {
@@ -62,7 +63,7 @@ function Header(props) {
                 
               </a>
 
-              <SignOut>
+              <SignOut onClick={ () => props.signOut() }>
                 <a>Sign Out</a>
               </SignOut>
             </User>
@@ -266,6 +267,8 @@ const Work = styled(User)`  //This copies the style of User to Work
     }
   };
 
-  const mapDispatchToProps = (dispatch) => ({});
+  const mapDispatchToProps = (dispatch) => ({
+    signOut: () => dispatch(signOutAPI()), 
+  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header); 

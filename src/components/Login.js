@@ -8,7 +8,7 @@ import { Navigate } from 'react-router-dom';
 function Login(props) {
     return (
         <Container>
-        {props.user && <Navigate to='/home' />}
+        {props.user && <Navigate to='/home' />} 
             <Nav>
                 <a href='/'>
                     <img src='/images/login-logo.svg' />
