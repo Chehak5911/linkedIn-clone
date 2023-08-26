@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PostModal from './PostModal';
 import { connect } from 'react-redux';
 import { getArticlesAPI } from '../actions';
+import ReactPlayer from 'react-player';
 
 function Main(props) {
 
@@ -32,9 +33,10 @@ function Main(props) {
 
   return (
     <>
-      {/* { props.articles.length() === 0 ? 
-    <p>There are no articles</p>
-    : */}
+      {
+        props.articles.length === 0 ? (
+          <p>There are no articles</p>
+        ) : (
       <Container>
         <ShareBox>Share
           <div>
@@ -71,17 +73,17 @@ function Main(props) {
             props.loading && <img src='./images/spinner.gif' />
           }
 
-
-          {{/* props.articles.length > 0 &&  */ }
-          /* props.articles.map( (article, key) => ( */}
-          <Article>
+          { props.articles.length > 0 &&
+            props.articles.map( (article, key) => (
+          
+          <Article key={key}>
             <SharedActor>
               <a>
-                {/* <img src={article.actor.image} />  */}
+                <img src={article.actor.image} /> 
                 <div>
-                  <span>Title</span>
-                  <span>Info</span>
-                  <span>Date</span>
+                  <span> {article.actor.title} </span>
+                  <span> {article.actor.description} </span>
+                  <span> {article.actor.date.toDate().toLocaleDateString()} </span>
                 </div>
               </a>
               <button>
@@ -89,10 +91,14 @@ function Main(props) {
               </button>
             </SharedActor>
 
-            <Description> Description </Description>
+            <Description> {article.description} </Description>
             <SharedImg>
               <a>
-                <img src='/images/share-img.jpg' />
+                {
+                  !article.sharedImg && article.video ? <ReactPlayer width={'100%'} url={article.video} />
+                  :
+                  ( article.sharedImg && <img src={article.sharedImg} /> )
+                }
               </a>
             </SharedImg>
 
@@ -128,17 +134,17 @@ function Main(props) {
               </button>
             </SocialActions>
           </Article>
-          {/* ) )
-        } */}
+            ))}
         </Content>
 
         <PostModal showModal={showModal} handleClick={handleClick} />
 
       </Container>
-      {/* } */}
+      )
+    }
     </>
   )
-}
+ }
 
 const Container = styled.div`
   grid-area: main;
@@ -304,6 +310,8 @@ li{
   font-size: 14px;
   button{
     display: flex;
+    border: none;
+    background-color: white;
     img{
       width: 24px;
     }
@@ -322,6 +330,8 @@ button{
   display: inline-flex;
   align-items: center;
   padding: 8px;
+  border: none;
+  background-color: white;
   img {
     width: 24px;
     height: 25px;
@@ -346,7 +356,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.userState.user,
     loading: state.articleState.loading,
-    article: state.articleState.article
+    articles: state.articleState.articles
   }
 }
 

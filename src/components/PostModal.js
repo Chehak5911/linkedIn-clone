@@ -63,7 +63,6 @@ function PostModal(props) {
                         <img src='/images/close-icon.png' />
                     </button>
                 </Header>
-            </Content>
 
             <SharedContent>
                 <UserInfo>
@@ -121,6 +120,7 @@ function PostModal(props) {
                 onClick={ (event) => postArticle(event) } >
                 Post</PostButton>
             </ShareCreation>
+        </Content>
         </Container>
         }
     </>  
@@ -155,7 +155,7 @@ margin: 0 auto;
 
 const Header = styled.div`
 display: block;
-padding: 16px 28px;
+padding: 16px 20px;
 border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 font-size: 16px;
 line-height: 1.5;

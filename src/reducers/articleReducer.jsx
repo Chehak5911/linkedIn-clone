@@ -10,15 +10,15 @@ export const articleReducer = (state = initState, action) => {
         case GET_ARTICLES:
             return {
                 ...state, 
-                articles: action.payload
-            }
+                articles: action.payload,
+            };
 
         case SET_LOADING_STATUS:
             return {
                 ...state, 
-                loading: action.status
-            }
-            
+            loading: action.status,
+            }; 
+
         default: 
         return state;
     }
